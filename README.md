@@ -2,10 +2,14 @@
 
 A full-stack web application for managing student internship applications, built with Flask (Python) backend and vanilla JavaScript frontend.
 
-our group members
-ITBIN-2313-0061 - Devops parts
-ITBIN-2313-0081 - frontend
-ITBIN-2313-0017 - backend
+## 👥 Project Team Members
+
+| Student ID      | Responsibility                                             |
+| --------------- | ---------------------------------------------------------- |
+| ITBIN-2313-0061 | DevOps (CI/CD, GitHub Actions, deployment support)         |
+| ITBIN-2313-0081 | Frontend Development (UI, JavaScript, Bootstrap, Chart.js) |
+| ITBIN-2313-0017 | Backend Development (Flask API, MySQL, JWT authentication) |
+
 
 Features
 
