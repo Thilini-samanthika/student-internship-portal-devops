@@ -163,6 +163,139 @@ def health():
 
 # ------------------ RUN APP ------------------
 
+<<<<<<< HEAD
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
+=======
+@app.route('/api/applications', methods=['GET'])
+@admin_required
+def get_all_applications():
+    """Get all applications (Admin only)"""
+    connection = get_db_connection()
+    if not connection:
+        return jsonify({'error': 'Database connection failed'}), 500
+    
+    cursor = connection.cursor(dictionary=True)
+    cursor.execute("""
+        SELECT a.*, s.name as student_name, s.email as student_email, s.course, s.year,
+               i.title, i.company
+        FROM applications a
+        JOIN students s ON a.student_id = s.id
+        JOIN internships i ON a.internship_id = i.id
+        ORDER BY a.applied_at DESC
+    """)
+    
+    applications = cursor.fetchall()
+    
+    # Convert datetime to string
+    for app in applications:
+        if app['applied_at']:
+            app['applied_at'] = app['applied_at'].isoformat()
+    
+    cursor.close()
+    connection.close()
+    
+    return jsonify(applications), 200
+
+@app.route('/api/applications/<int:application_id>/approve', methods=['POST'])
+@admin_required
+def approve_application(application_id):
+    """Approve an application (Admin only)"""
+    connection = get_db_connection()
+    if not connection:
+        return jsonify({'error': 'Database connection failed'}), 500
+    
+    cursor = connection.cursor()
+    cursor.execute("""
+        UPDATE applications 
+        SET status = 'Approved'
+        WHERE id = %s
+    """, (application_id,))
+    
+    connection.commit()
+    cursor.close()
+    connection.close()
+    
+    return jsonify({'message': 'Application approved successfully'}), 200
+
+@app.route('/api/applications/<int:application_id>/reject', methods=['POST'])
+@admin_required
+def reject_application(application_id):
+    """Reject an application (Admin only)"""
+    connection = get_db_connection()
+    if not connection:
+        return jsonify({'error': 'Database connection failed'}), 500
+    
+    cursor = connection.cursor()
+    cursor.execute("""
+        UPDATE applications 
+        SET status = 'Rejected'
+        WHERE id = %s
+    """, (application_id,))
+    
+    connection.commit()
+    cursor.close()
+    connection.close()
+    
+    return jsonify({'message': 'Application rejected successfully'}), 200
+
+@app.route('/api/stats', methods=['GET'])
+@admin_required
+def get_statistics():
+    """Get dashboard statistics (Admin only)"""
+    connection = get_db_connection()
+    if not connection:
+        return jsonify({'error': 'Database connection failed'}), 500
+    
+    cursor = connection.cursor(dictionary=True)
+    
+    # Total internships
+    cursor.execute("SELECT COUNT(*) as total FROM internships")
+    total_internships = cursor.fetchone()['total']
+    
+    # Total applications
+    cursor.execute("SELECT COUNT(*) as total FROM applications")
+    total_applications = cursor.fetchone()['total']
+    
+    # Pending applications
+    cursor.execute("SELECT COUNT(*) as total FROM applications WHERE status = 'Pending'")
+    pending_applications = cursor.fetchone()['total']
+    
+    # Approved applications
+    cursor.execute("SELECT COUNT(*) as total FROM applications WHERE status = 'Approved'")
+    approved_applications = cursor.fetchone()['total']
+    
+    # Rejected applications
+    cursor.execute("SELECT COUNT(*) as total FROM applications WHERE status = 'Rejected'")
+    rejected_applications = cursor.fetchone()['total']
+    
+    # Total students
+    cursor.execute("SELECT COUNT(*) as total FROM students")
+    total_students = cursor.fetchone()['total']
+    
+    cursor.close()
+    connection.close()
+    
+    return jsonify({
+        'total_internships': total_internships,
+        'total_applications': total_applications,
+        'pending_applications': pending_applications,
+        'approved_applications': approved_applications,
+        'rejected_applications': rejected_applications,
+        'total_students': total_students
+    }), 200
+
+@app.route('/api/me', methods=['GET'])
+@jwt_required()
+def get_current_user():
+    """Get current logged-in user information"""
+    current_user = get_jwt_identity()
+    return jsonify(current_user), 200
+
+handler = Mangum(app)
+
+if __name__ == '__main__':
+    init_db()
+    app.run(debug=True, port=5000)
+>>>>>>> bb5cc12 (Resolve merge conflicts)
