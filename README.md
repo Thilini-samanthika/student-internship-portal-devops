@@ -2,6 +2,11 @@
 
 A full-stack web application for managing student internship applications, built with Flask (Python) backend and vanilla JavaScript frontend.
 
+our group members
+ITBIN-2313-0061 - Devops parts
+ITBIN-2313-0081 - frontend
+ITBIN-2313-0017 - backend
+
 Features
 
  Core Features
