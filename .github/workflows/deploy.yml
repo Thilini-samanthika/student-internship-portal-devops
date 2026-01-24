@@ -1,39 +1,20 @@
-name: Deploy to Render
-
+name: Deploy to Netlify
 on:
-  push:
-    branches:
-      - main  # Trigger deploy on pushes to main branch
-
+ push:
+ branches: [ main ]
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+ deploy:
+ runs-on: ubuntu--latest
 
-    steps:
-      # 1️ Checkout repo
-      - name: Checkout repository
-        uses: actions/checkout@v3
+ steps:
+ -- name: Checkout code
+ uses: actions/checkout@v3
 
-      # 2️ Set up Python
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'  # match your Python version
-
-      # 3️ Install dependencies
-      - name: Install dependencies
-        working-directory: src/backend
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      # 4️ Deploy to Render via API
-      - name: Deploy to Render
-        env:
-          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
-        run: |
-          curl -X POST \
-            -H "Authorization: Bearer $RENDER_API_KEY" \
-            -H "Accept: application/json" \
-            https://api.render.com/deploy/srv-${RENDER_SERVICE_ID}
+ -- name: Deploy to Netlify
+ uses: nwtgck/actions--netlify@v2.0
+ with:
+ publish-dir: '.'
+ production-deploy: true
+ env:
+ NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+ NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
