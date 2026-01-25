@@ -87,6 +87,15 @@ const api = {
         });
     },
 
+    // Register admin
+    async registerAdmin(data) {
+        return this.request('/register/admin', {
+            method: 'POST',
+            headers: this.getHeaders(false),
+            body: JSON.stringify(data)
+        });
+    },
+
     // Get current user
     async getCurrentUser() {
         return this.request('/me', {
