@@ -1,51 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Student Internship Portal</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Student Internship Portal - Login</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                            950: '#172554',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">💼 Internship Portal</a>
+
+<body class="bg-slate-50 font-sans antialiased text-slate-900 h-screen flex flex-col">
+    <!-- Navbar -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <span class="text-2xl">💼</span>
+                    <a href="index.html"
+                        class="font-bold text-xl tracking-tight text-slate-900 hover:text-primary-600 transition-colors">Internship
+                        Portal</a>
+                </div>
+                <div class="flex space-x-8 items-center">
+                    <a href="index.html"
+                        class="text-sm font-medium text-slate-600 hover:text-primary-600 transition-colors">Home</a>
+                    <a href="register.html"
+                        class="text-sm font-medium text-slate-600 hover:text-primary-600 transition-colors">Register</a>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6 col-lg-4">
-                <div class="card shadow">
-                    <div class="card-body p-5">
-                        <h2 class="card-title text-center mb-4">Login</h2>
-                        <form id="loginForm">
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" required>
-                            </div>
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">Login</button>
-                            </div>
-                        </form>
-                        <div class="text-center mt-3">
-                            <p>Don't have an account? <a href="register.html">Register here</a></p>
+    <!-- Login Content -->
+    <div class="flex-grow flex items-center justify-center px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full z-0 pointer-events-none opacity-40">
+            <div
+                class="absolute top-20 left-10 w-72 h-72 bg-primary-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob">
+            </div>
+            <div
+                class="absolute bottom-20 right-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000">
+            </div>
+        </div>
+
+        <div class="max-w-md w-full space-y-8 bg-white p-8 rounded-2xl shadow-xl border border-slate-100 relative z-10">
+            <div>
+                <h2 class="mt-2 text-center text-3xl font-bold tracking-tight text-slate-900">Welcome back</h2>
+                <p class="mt-2 text-center text-sm text-slate-600">
+                    Sign in to your account
+                </p>
+            </div>
+
+            <div id="alertPlaceholder"></div>
+
+            <form id="loginForm" class="mt-8 space-y-6">
+                <input type="hidden" name="remember" value="true">
+                <div class="space-y-4">
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-slate-700">Email address</label>
+                        <div class="mt-1">
+                            <input id="email" name="email" type="email" autocomplete="email" required
+                                class="appearance-none block w-full px-3 py-2 border border-slate-300 rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:text-sm transition-shadow">
                         </div>
-                        <div id="error-message" class="alert alert-danger mt-3" style="display: none;"></div>
+                    </div>
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-slate-700">Password</label>
+                        <div class="mt-1">
+                            <input id="password" name="password" type="password" autocomplete="current-password"
+                                required
+                                class="appearance-none block w-full px-3 py-2 border border-slate-300 rounded-lg shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 sm:text-sm transition-shadow">
+                        </div>
                     </div>
                 </div>
+
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input id="remember-me" name="remember-me" type="checkbox"
+                            class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded">
+                        <label for="remember-me" class="ml-2 block text-sm text-slate-600">Remember me</label>
+                    </div>
+                    <!-- Optional: Forgot password link -->
+                </div>
+
+                <div>
+                    <button type="submit"
+                        class="group relative w-full flex justify-center py-2.5 px-4 border border-transparent text-sm font-semibold rounded-lg text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-all shadow-md hover:shadow-lg">
+                        Sign in
+                    </button>
+                </div>
+            </form>
+
+            <div class="text-center mt-4">
+                <p class="text-sm text-slate-600">
+                    Don't have an account?
+                    <a href="register.html"
+                        class="font-medium text-primary-600 hover:text-primary-500 hover:underline">Register here</a>
+                </p>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/api.js"></script>
     <script src="js/login.js"></script>
 </body>
-</html>
 
+</html>

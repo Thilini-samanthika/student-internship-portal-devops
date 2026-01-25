@@ -1,8 +1,11 @@
 // Registration page functionality
 document.addEventListener('DOMContentLoaded', function () {
     const registerForm = document.getElementById('registerForm');
-    const errorMessage = document.getElementById('error-message');
-    const successMessage = document.getElementById('success-message');
+    const alertPlaceholder = document.getElementById('alertPlaceholder');
+    const btnStudent = document.getElementById('btnStudent');
+    const btnAdmin = document.getElementById('btnAdmin');
+    const roleInput = document.getElementById('role');
+    const studentFields = document.getElementById('studentFields');
 
     // If already logged in, redirect to dashboard
     if (api.isLoggedIn()) {
@@ -15,46 +18,76 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
+    // Role selection logic
+    btnStudent.addEventListener('click', () => {
+        roleInput.value = 'student';
+        btnStudent.className = "px-6 py-2 text-sm font-medium rounded-full transition-all focus:outline-none bg-primary-600 text-white shadow-md";
+        btnAdmin.className = "px-6 py-2 text-sm font-medium rounded-full transition-all focus:outline-none bg-slate-100 text-slate-600 hover:bg-slate-200";
+        studentFields.classList.remove('hidden');
+    });
+
+    btnAdmin.addEventListener('click', () => {
+        roleInput.value = 'admin';
+        btnAdmin.className = "px-6 py-2 text-sm font-medium rounded-full transition-all focus:outline-none bg-primary-600 text-white shadow-md";
+        btnStudent.className = "px-6 py-2 text-sm font-medium rounded-full transition-all focus:outline-none bg-slate-100 text-slate-600 hover:bg-slate-200";
+        studentFields.classList.add('hidden');
+    });
+
     registerForm.addEventListener('submit', async function (e) {
         e.preventDefault();
 
+        const role = roleInput.value;
         const name = document.getElementById('name').value;
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
-        const course = document.getElementById('course').value;
-        const year = document.getElementById('year').value;
 
         // Hide any previous messages
-        errorMessage.style.display = 'none';
-        successMessage.style.display = 'none';
+        alertPlaceholder.innerHTML = '';
+
+        let data = { name, email, password };
+        let registerPromise;
+
+        if (role === 'student') {
+            const course = document.getElementById('course').value;
+            const year = document.getElementById('year').value;
+            data.course = course;
+            data.year = parseInt(year) || null;
+            registerPromise = api.registerStudent(data);
+        } else {
+            registerPromise = api.registerAdmin(data);
+        }
 
         try {
-            const result = await api.registerStudent({
-                name,
-                email,
-                password,
-                course,
-                year: parseInt(year)
-            });
+            const result = await registerPromise;
 
             if (result.ok) {
                 // Show success message
-                successMessage.textContent = 'Registration successful! Redirecting to login...';
-                successMessage.style.display = 'block';
+                alertPlaceholder.innerHTML = `
+                    <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg relative mb-4" role="alert">
+                        <span class="block sm:inline">Registration successful! Redirecting to login...</span>
+                    </div>
+                `;
 
-                // Redirect to login after 2 seconds
+                // Redirect to login after 1.5 seconds
                 setTimeout(() => {
                     window.location.href = 'login.html';
-                }, 2000);
+                }, 1500);
             } else {
                 // Show error message
-                errorMessage.textContent = result.error || 'Registration failed. Please try again.';
-                errorMessage.style.display = 'block';
+                alertPlaceholder.innerHTML = `
+                    <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg relative mb-4" role="alert">
+                        <strong class="font-bold">Error!</strong>
+                        <span class="block sm:inline">${result.error || 'Registration failed. Please try again.'}</span>
+                    </div>
+                `;
             }
         } catch (error) {
             console.error('Registration error:', error);
-            errorMessage.textContent = 'Connection error. Please make sure the server is running.';
-            errorMessage.style.display = 'block';
+            alertPlaceholder.innerHTML = `
+                <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg relative mb-4" role="alert">
+                    <span class="block sm:inline">Connection error. Please make sure the server is running.</span>
+                </div>
+            `;
         }
     });
 });
