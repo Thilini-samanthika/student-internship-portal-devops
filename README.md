@@ -9,11 +9,11 @@ The Student Internship Portal is deployed and live at:
 
 Project Team Members
 
-| Student ID      | Responsibility                                             |
-| --------------- | ---------------------------------------------------------- |
-| ITBIN-2313-0061 | DevOps (CI/CD, GitHub Actions, deployment support)         |
-| ITBIN-2313-0081 | Frontend Development (UI, JavaScript, Bootstrap, Chart.js) |
-| ITBIN-2313-0017 | Backend Development (Flask API, MySQL, JWT authentication) |
+| Student ID                         | Responsibility                                             |
+| ---------------                    | ---------------------------------------------------------- |
+| ITBIN-2313-0061-M.T.Samanthika     | DevOps (CI/CD, GitHub Actions, deployment support)         |
+| ITBIN-2313-0081-P.A.C.S.P Arewwala | Frontend Development (UI, JavaScript, Bootstrap, Chart.js) |
+| ITBIN-2313-0017 -D.H.M.H.M.Herath  | Backend Development (Flask API, MySQL, JWT authentication) |
 
 Tech Stack
 
