@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Internships - Admin</title>
-    <!-- Google Fonts -->
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS -->
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -48,7 +48,7 @@
 </head>
 
 <body class="bg-slate-50 font-sans antialiased text-slate-900 min-h-screen">
-    <!-- Navbar -->
+    
     <nav class="bg-white/80 backdrop-blur-md border-b border-gray-100 z-50 sticky top-0">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
@@ -68,7 +68,7 @@
                     <a href="#" id="logoutBtn"
                         class="text-sm font-medium px-4 py-2 bg-slate-100 text-slate-700 rounded-full hover:bg-slate-200 transition-all">Logout</a>
                 </div>
-                <!-- Mobile menu button -->
+                
                 <div class="md:hidden flex items-center">
                     <button
                         class="mobile-menu-button p-2 rounded-md text-slate-600 hover:text-slate-900 focus:outline-none">
@@ -80,7 +80,7 @@
                 </div>
             </div>
         </div>
-        <!-- Mobile Menu -->
+        
         <div class="mobile-menu hidden md:hidden bg-white border-t border-gray-100">
             <a href="admin-dashboard.html"
                 class="block py-3 px-4 text-sm hover:bg-slate-50 text-slate-600">Dashboard</a>
@@ -102,7 +102,7 @@
         </div>
 
         <div id="internships-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Internships will be loaded here -->
+            
             <div class="col-span-full text-center py-12">
                 <div
                     class="inline-block animate-spin rounded-full h-8 w-8 border-4 border-primary-500 border-t-transparent">
@@ -112,18 +112,18 @@
         </div>
     </div>
 
-    <!-- Create Internship Modal -->
+    
     <div id="createInternshipModal" class="fixed inset-0 z-50 overflow-y-auto hidden" aria-labelledby="modal-title"
         role="dialog" aria-modal="true">
-        <!-- Backdrop -->
+        
         <div class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm transition-opacity opacity-0" id="modalBackdrop">
         </div>
 
         <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-            <!-- Center trick -->
+            
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-            <!-- Modal Panel -->
+            
             <div class="relative inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full scale-95 opacity-0"
                 id="modalPanel">
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">

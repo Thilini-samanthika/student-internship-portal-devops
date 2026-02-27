@@ -126,8 +126,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         createError.classList.add('hidden');
 
         try {
-            // Using API base URL for fetching if api helper doesn't have create helper
-            // Note: API_BASE_URL should be available if api.js defines it globally or we can use relative
+            
             const response = await fetch('/api/internships', {
                 method: 'POST',
                 headers: api.getHeaders(),

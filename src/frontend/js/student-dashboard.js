@@ -48,8 +48,8 @@ document.addEventListener('DOMContentLoaded', async function () {
             return;
         }
 
-        // Using grid layout container is handled in HTML/CSS usually, but here we replace the inner HTML structure
-        // The container #applications-container has 'divide-y divide-gray-100' class in HTML
+        
+    
 
         let html = '';
 

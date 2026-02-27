@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async function () {
-    // Check if user is logged in (optional for viewing, required for applying)
+    // Check if user is logged in 
     const isLoggedIn = api.isLoggedIn();
     const logoutBtn = document.getElementById('logoutBtn');
 
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 btn.addEventListener('click', function () {
                     const id = this.getAttribute('data-id');
                     modalInternshipId.value = id;
-                    applicationError.style.display = 'none'; // Use class manipulation if possible, but style works for hidden/block legacy
+                    applicationError.style.display = 'none'; 
                     applicationError.classList.add('hidden');
                     applicationError.textContent = '';
 
@@ -165,9 +165,9 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             if (result.ok) {
                 hideModal();
-                // We'll use a simple alert for now, or could implement a toast notification
+                // simple alert 
                 alert('Application submitted successfully!');
-                // Optional: redirect to dashboard to see it
+                // Optional: redirect to dashboard 
                 window.location.href = 'student-dashboard.html';
             } else {
                 showError(result.error || 'Failed to submit application');
