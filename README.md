@@ -1,160 +1,251 @@
-#  Student Internship Portal
+# Student Internship Portal
 
-A full-stack web application for managing student internship applications, built with **Flask (Python)** backend and **Vanilla JavaScript** frontend.
+A full-stack web application for managing student internship applications, built with Flask (Python) backend and Vanilla JavaScript frontend.
+This project demonstrates real-world Git workflow, CI/CD automation, and cloud deployment practices.
 
----
+## Group Information
 
-##  Live Deployment
+Student 1: M.T. Samanthika - ITBIN-2313-0061 - Role: DevOps Engineer
 
-🔗 **Live URL**  
-https://web-production-6596b.up.railway.app
+Student 2: P.A.C.S.P. Arewwala - ITBIN-2313-0081 - Role: Frontend Developer
 
----
+Student 3: D.H.M.H.M. Herath - ITBIN-2313-0017 - Role: Backend Developer
 
-##  Project Team Members
+## Live Deployment
 
-| Student ID | Name | Role | Responsibility |
-|------------|------|------|----------------|
-| ITBIN-2313-0061 | M.T. Samanthika | DevOps Engineer | CI/CD pipeline, GitHub Actions, deployment |
-| ITBIN-2313-0081 | P.A.C.S.P. Arewwala | Frontend Developer | UI design, JavaScript logic, Bootstrap, Chart.js |
-| ITBIN-2313-0017 | D.H.M.H.M. Herath | Backend Developer | Flask API, MySQL database, JWT authentication |
+### Live URL:
+https://thilinisamanthika.pythonanywhere.com/
 
----
+## Technologies Used
 
-##  Tech Stack
+#### Backend
 
-### Backend
 - Python
+
 - Flask
+
 - MySQL
+
 - JWT Authentication
 
-### Frontend
+#### Frontend
+
 - HTML5
+
 - CSS3
+
 - JavaScript (ES6)
+
 - Bootstrap 5
+
 - Chart.js
 
-### DevOps
-- GitHub
+#### DevOps
+
+- Git & GitHub
+
 - GitHub Actions (CI/CD)
-- Railway (Deployment)
 
----
+- PythonAnywhere (Cloud Deployment)
 
-##  Features
+## Features
+#### Core Features
 
-### Core Features
-- Internship listings management (Admin)
-- Student internship application system
-- CV upload and cover letter submission
-- Application validation (prevents duplicate applications)
+ - Internship listings management (Admin)
+
+ - Student internship application system
+
+ - CV upload and cover letter submission
+
+ - Duplicate application prevention
+
 - Admin dashboard for approving/rejecting applications
+
 - Application status tracking (Pending / Approved / Rejected)
+
 - Role-based authentication (Admin & Student)
 
-### Advanced Features
-- RESTful API architecture
-- Secure JWT token-based authentication
-- AJAX / Fetch API for dynamic updates
-- Fully responsive UI using Bootstrap 5
-- Admin analytics dashboard using Chart.js
-- Automated CI/CD pipeline with GitHub Actions
+#### Advanced Features
 
----
+ - RESTful API architecture
 
-##  Branch Strategy
+ - Secure JWT token-based authentication
 
-The following Git branching strategy was used:
+ - AJAX / Fetch API integration
 
-- `main` – Production-ready code
-- `develop` – Integration and testing branch
-- `feature/*` – Individual feature development branches
+ - Fully responsive UI (Bootstrap 5)
 
----
+ - Admin analytics dashboard (Chart.js)
 
-##  Setup Instructions
+ - Automated CI/CD pipeline using GitHub Actions
 
-### Prerequisites
-- Python 3.10 or higher
+## Branch Strategy
+
+We implemented a professional Git workflow:
+
+ - main – Production branch (auto-deployed)
+
+ - develop – Integration branch
+
+ - feature/* – Individual feature branches
+
+All changes were merged using Pull Requests after review.
+
+## Setup Instructions
+Prerequisites
+
+- Python 3.10+
+
 - MySQL
+
 - Git
 
----
-
-##  Installation
-
-### 1️ Clone the Repository
-
+##### 1️ Clone the Repository
 git clone https://github.com/Thilini-samanthika/student-internship-portal.git
 cd student-internship-portal
-
-### 2️ Create Virtual Environment
+##### 2️ Create Virtual Environment
 python -m venv venv
 
-Activate the virtual environment:
-Mac / Linux
+Activate:
+
+Mac/Linux:
+
 source venv/bin/activate
 
-Windows
+Windows:
+
 venv\Scripts\activate
+##### 3️ Install Dependencies
+pip install -r src/backend/requirements.txt
+##### 4️ Configure Environment Variables
 
-### 3 Install Dependencies
-pip install -r requirements.txt
-
-### 4️ Setup Environment Variables
-Create a .env file in the root directory and add:
+Create a .env file:
 
 SECRET_KEY=your_secret_key
 DATABASE_URL=your_database_url
 JWT_SECRET_KEY=your_jwt_secret
-
-### 5 Run the Application
+##### 5️ Run the Application
 flask run
 
-The application will be available at:
+Application runs at:
 
 http://127.0.0.1:5000
+- CI/CD Workflow
 
-### CI/CD Workflow
+This project uses GitHub Actions for automated Continuous Integration and Continuous Deployment.
 
-This project uses GitHub Actions for Continuous Integration and Continuous Deployment.
+## Continuous Integration (CI)
 
-Workflow Process
+- Triggered on:
 
-  - Code push to the develop branch triggers the CI workflow
+Push to main, develop, feature/*
 
-  - Automated tests are executed
+Pull requests to main and develop
 
-  - If tests pass, the application is deployed to Railway
+- CI Process:
 
-  - Production environment is updated automatically
+Checkout repository
 
-Benefits
+Setup Python environment
 
-  - Reliable and consistent deployments
+Install dependencies
 
-  - Faster team collaboration
+Run backend tests
 
-  - Reduced manual deployment errors
+Verify build integrity
 
-Challenges Faced
+This ensures code quality before merging.
 
-  - Secure implementation of JWT authentication
+## Continuous Deployment (CD)
 
-  - Preventing multiple applications for the same internship
+- Triggered when:
 
-  - Managing role-based access control
+Code is merged/pushed into main
 
-  - Configuring environment variables for Railway deployment
+- Deployment Platform:
 
-Solutions Implemented
+PythonAnywhere
 
-  - Token validation middleware
+- Deployment Process:
 
-  - Backend validation logic
+GitHub Actions verifies tests
 
-  - Well-structured Git branching strategy
+Production branch updates
 
-  - Secure .env configuration management
+PythonAnywhere web application reloads
+
+Live site updates automatically
+
+- Secrets used (GitHub → Settings → Secrets):
+
+PA_USERNAME
+
+PA_API_TOKEN
+
+PA_DOMAIN_NAME
+
+## Individual Contributions
+ - M.T. Samanthika (DevOps Engineer)
+
+     - Repository setup and configuration
+
+     - Git branching strategy implementation
+
+     - GitHub Actions CI/CD setup
+
+     - PythonAnywhere deployment configuration
+
+     - Merge conflict resolution
+
+     - Production release management
+
+ - P.A.C.S.P. Arewwala (Frontend Developer)
+
+    - UI/UX implementation
+
+    - JavaScript logic development
+
+    - Bootstrap styling
+
+    - Chart.js dashboard integration
+
+    - Responsive design implementation
+
+ - D.H.M.H.M. Herath (Backend Developer)
+
+    - Flask REST API development
+
+    - MySQL database integration
+
+    - JWT authentication system
+
+    - Application validation logic
+
+    - Role-based access control
+
+## Challenges Faced
+
+Secure JWT authentication implementation
+
+Preventing duplicate internship applications
+
+Role-based authorization logic
+
+CI/CD pipeline configuration
+
+Environment variable management in production
+
+ ## Solutions Implemented
+
+Middleware-based token validation
+
+Backend validation logic for duplicate prevention
+
+Structured Git workflow with feature branches
+
+Automated testing before deployment
+
+Secure environment configuration via secrets
+
+
+
