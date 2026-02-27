@@ -1,11 +1,10 @@
-"""
+
 Simple API test script for GitHub Actions
 Tests basic API endpoints without external dependencies
-"""
+
 import sys
 import os
 
-# Add the backend directory to the path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 def test_imports():
@@ -16,10 +15,10 @@ def test_imports():
         from flask_jwt_extended import JWTManager
         from werkzeug.security import generate_password_hash
         import mysql.connector
-        print("✓ All imports successful")
+        print(" All imports successful")
         return True
     except ImportError as e:
-        print(f"✗ Import error: {e}")
+        print(f" Import error: {e}")
         return False
 
 def test_app_creation():
@@ -44,10 +43,10 @@ def test_password_hashing():
         hashed = generate_password_hash(password)
         assert check_password_hash(hashed, password)
         assert not check_password_hash(hashed, "wrong_password")
-        print("✓ Password hashing works correctly")
+        print(" Password hashing works correctly")
         return True
     except Exception as e:
-        print(f"✗ Password hashing error: {e}")
+        print(f" Password hashing error: {e}")
         return False
 
 def main():
@@ -67,7 +66,7 @@ def main():
             result = test()
             results.append(result)
         except Exception as e:
-            print(f"✗ Test {test.__name__} failed with exception: {e}")
+            print(f" Test {test.__name__} failed with exception: {e}")
             results.append(False)
     
     print("-" * 50)
@@ -76,10 +75,10 @@ def main():
     print(f"Tests passed: {passed}/{total}")
     
     if passed == total:
-        print("✓ All tests passed!")
+        print(" All tests passed!")
         sys.exit(0)
     else:
-        print("✗ Some tests failed")
+        print(" Some tests failed")
         sys.exit(1)
 
 if __name__ == '__main__':
