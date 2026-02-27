@@ -118,7 +118,7 @@ const api = {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${this.getToken()}`
-                // Content-Type is set automatically by fetch for FormData
+                
             },
             body: formData
         });
@@ -138,7 +138,7 @@ const api = {
             method: 'GET',
             headers: this.getHeaders()
         });
-        // normalize response structure if needed
+        
         return { data: result, ok: result.ok };
     },
 
@@ -178,7 +178,7 @@ const api = {
     }
 };
 
-// Redirect if not logged in (for protected pages)
+// Redirect if not logged in
 function requireAuth() {
     if (!api.isLoggedIn()) {
         window.location.href = 'login.html';

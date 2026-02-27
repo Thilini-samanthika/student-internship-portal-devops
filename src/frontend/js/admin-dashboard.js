@@ -47,9 +47,9 @@ document.addEventListener('DOMContentLoaded', async function () {
                         stats.rejected_applications || 0
                     ],
                     backgroundColor: [
-                        'rgba(255, 193, 7, 0.7)',  // Warning/Yellow
-                        'rgba(25, 135, 84, 0.7)',  // Success/Green
-                        'rgba(220, 53, 69, 0.7)'   // Danger/Red
+                        'rgba(255, 193, 7, 0.7)',  // Warning
+                        'rgba(25, 135, 84, 0.7)',  // Success
+                        'rgba(220, 53, 69, 0.7)'   // Danger
                     ],
                     borderColor: [
                         'rgba(255, 193, 7, 1)',
