@@ -182,6 +182,9 @@ def student_required(f):
 
 
 #STATIC ROUTES
+@app.route("/api/health")
+def health():
+    return {"status": "ok"}, 200
 
 @app.route("/")
 def serve_index():
