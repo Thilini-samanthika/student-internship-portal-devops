@@ -247,5 +247,36 @@ Automated testing before deployment
 
 Secure environment configuration via secrets
 
+##  Docker Setup (Containerised Run)
 
+### Prerequisites
+- Docker Desktop
+- Docker Compose
 
+### Build & Run
+
+- docker compose up --build 
+
+### Access
+
+- App: http://localhost:5000
+
+- Health: http://localhost:5000/api/health
+### Stop
+docker compose down
+### Reset DB (remove volumes)
+docker compose down -v
+### Image Size Evidence
+Run:
+
+- docker images
+
+Record the image size before/after optimisation for the report.
+
+---
+
+## E) Image size measurement (evidence)
+Run:
+```bash
+docker compose up --build
+docker images
