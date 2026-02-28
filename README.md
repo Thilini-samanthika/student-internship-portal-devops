@@ -276,7 +276,16 @@ Record the image size before/after optimisation for the report.
 ---
 
 ## E) Image size measurement (evidence)
+
+<img width="526" height="139" alt="image" src="https://github.com/user-attachments/assets/11f1b5a7-1a5e-42ca-94a1-e0ac53da90a2" />
+
 Run:
-```bash
-docker compose up --build
-docker images
+
+- docker compose up --build
+- docker images
+
+### PythonAnywhere Deployment Note
+The GitHub Actions deploy workflow triggers a **reload** of the PythonAnywhere web app.
+The application code must already be updated on the server (e.g., via `git pull origin main` in a PythonAnywhere Bash console) before reload.
+
+
