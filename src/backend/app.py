@@ -12,44 +12,71 @@ import sqlite3
 import json
 
 from functools import wraps
+from dotenv import load_dotenv
 
-#APP CONFIG
+load_dotenv()
 
-FRONTEND_FOLDER = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend")
+# APP CONFIG
 
+BASE_DIR = os.path.dirname(__file__)                 
+SRC_DIR = os.path.dirname(BASE_DIR)                  
+FRONTEND_FOLDER = os.path.join(SRC_DIR, "frontend")  
 UPLOAD_FOLDER = os.path.join(FRONTEND_FOLDER, "uploads")
 
 app = Flask(__name__, static_folder=FRONTEND_FOLDER, static_url_path="")
 CORS(app)
 
-#JWT
-app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY", "dev-secret-key")
+# JWT
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY")
+
+if not app.config["SECRET_KEY"] or not app.config["JWT_SECRET_KEY"]:
+    raise RuntimeError("SECRET_KEY and JWT_SECRET_KEY must be set as environment variables")
+
 app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(hours=24)
 
-#Uploads
+# Uploads
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024
 os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
 
 jwt = JWTManager(app)
 
-#DATABASE (SQLite)
+#DATABASE CONFIG
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "internship_portal.db")
+DEFAULT_DB_FILE = os.path.join(BASE_DIR, "internship_portal.db")
+DATABASE_URL = os.environ.get("DATABASE_URL", f"sqlite:///{DEFAULT_DB_FILE}")
+
+def _sqlite_path_from_url(db_url: str) -> str:
+    """
+    Convert sqlite URL to filesystem path.
+
+    sqlite:////abs/path.db  -> /abs/path.db
+    sqlite:///rel/path.db   -> rel/path.db
+    """
+    if not db_url.startswith("sqlite:///"):
+        raise ValueError("Unsupported DB. Only sqlite:/// is supported in this project.")
+    return db_url.replace("sqlite:///", "", 1)
 
 def get_db_connection():
     try:
-        conn = sqlite3.connect(DB_PATH)
+        db_path = _sqlite_path_from_url(DATABASE_URL)
+        # Ensure parent folder exists (useful in docker volumes)
+        parent = os.path.dirname(db_path)
+        if parent:
+            os.makedirs(parent, exist_ok=True)
+
+        conn = sqlite3.connect(db_path, check_same_thread=False)
         conn.row_factory = sqlite3.Row
         return conn
     except Exception as e:
-        print("SQLite Connection Error:", e)
+        print("Database Connection Error:", e)
         return None
 
 def init_db():
     conn = get_db_connection()
     if not conn:
-        print("Failed to connect to SQLite during initialization.")
+        print("Failed to connect to DB during initialization.")
         return
 
     schema_queries = [
@@ -99,7 +126,7 @@ def init_db():
         for query in schema_queries:
             cur.execute(query)
 
-        #admin
+        # Default admin
         email = "admin@example.com"
         cur.execute("SELECT id FROM admins WHERE email = ?", (email,))
         if not cur.fetchone():
@@ -117,8 +144,7 @@ def init_db():
     except Exception as e:
         print("Error initializing DB:", e)
 
-
-#HELPERS 
+# HELPERS
 
 ALLOWED_EXTENSIONS = {"pdf", "doc", "docx"}
 
@@ -182,7 +208,9 @@ def student_required(f):
 
 
 #STATIC ROUTES
-@app.route("/api/health")
+
+
+@app.route("/api/health", methods=["GET"])
 def health():
     return {"status": "ok"}, 200
 
@@ -199,6 +227,7 @@ def serve_static(path):
 
 
 #API ROUTES
+
 
 @app.route("/api/register/student", methods=["POST"])
 def register_student():
@@ -456,7 +485,7 @@ def get_statistics():
 
     try:
         cur = conn.cursor()
-        
+
         return jsonify({
             "total_internships": get_count(cur, "SELECT COUNT(*) FROM internships"),
             "total_applications": get_count(cur, "SELECT COUNT(*) FROM applications"),
@@ -478,4 +507,4 @@ def get_current_user():
 init_db()
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=True)
