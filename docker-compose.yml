@@ -3,38 +3,46 @@ services:
     image: postgres:16-alpine
     container_name: internship_db
     environment:
-      POSTGRES_DB: internship_portal
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - db_data:/var/lib/postgresql/data
     networks:
       - app_net
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d internship_portal"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
       interval: 10s
       timeout: 5s
       retries: 5
+    restart: unless-stopped
 
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: internship_web
     depends_on:
       db:
         condition: service_healthy
     ports:
       - "5000:5000"
-    environment:
-      DATABASE_URL: postgresql://postgres:postgres@db:5432/internship_portal
-      JWT_SECRET_KEY: "change-this"
+    env_file:
+      - .env
     networks:
       - app_net
     volumes:
       - uploads_data:/app/src/backend/uploads
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:5000/api/health || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
     restart: unless-stopped
 
 networks:
   app_net:
+    driver: bridge
 
 volumes:
   db_data:

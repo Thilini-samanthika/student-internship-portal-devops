@@ -96,23 +96,23 @@ Prerequisites
 
 - Python 3.10+
 
-- MySQL
+- postgreSQL
 
 - Git
 
 ##### 1️ Clone the Repository
-   - git clone https://github.com/Thilini-samanthika/student-internship-portal.git
+   - git clone https://github.com/Thilini-samanthika/student-internship-portal-devops.git
    - cd student-internship-portal
 ##### 2️ Create Virtual Environment
    - python -m venv venv
 
 Activate:
 
-Mac/Linux:
+  Mac/Linux:
 
    - source venv/bin/activate
 
-Windows:
+  Windows:
 
    - venv\Scripts\activate
 ##### 3️ Install Dependencies
@@ -248,6 +248,16 @@ Automated testing before deployment
 Secure environment configuration via secrets
 
 ##  Docker Setup (Containerised Run)
+## Run with Docker (Recommended)
+
+### Prerequisites
+- Docker Desktop installed
+
+### Steps
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Thilini-samanthika/student-internship-portal-devops.git
+   cd student-internship-portal-devops
 
 ### Prerequisites
 - Docker Desktop
@@ -263,9 +273,9 @@ Secure environment configuration via secrets
 
 - Health: http://localhost:5000/api/health
 ### Stop
-docker compose down
+- docker compose down
 ### Reset DB (remove volumes)
-docker compose down -v
+- docker compose down -v
 ### Image Size Evidence
 Run:
 
