@@ -101,36 +101,36 @@ Prerequisites
 - Git
 
 ##### 1️ Clone the Repository
-git clone https://github.com/Thilini-samanthika/student-internship-portal.git
-cd student-internship-portal
+   - git clone https://github.com/Thilini-samanthika/student-internship-portal.git
+   - cd student-internship-portal
 ##### 2️ Create Virtual Environment
-python -m venv venv
+   - python -m venv venv
 
 Activate:
 
 Mac/Linux:
 
-source venv/bin/activate
+   - source venv/bin/activate
 
 Windows:
 
-venv\Scripts\activate
+   - venv\Scripts\activate
 ##### 3️ Install Dependencies
-pip install -r src/backend/requirements.txt
+   - pip install -r src/backend/requirements.txt
 ##### 4️ Configure Environment Variables
 
 Create a .env file:
-
-SECRET_KEY=your_secret_key
-DATABASE_URL=your_database_url
-JWT_SECRET_KEY=your_jwt_secret
+   - SECRET_KEY=your_secret_key
+   - DATABASE_URL=your_database_url
+   - JWT_SECRET_KEY=your_jwt_secret
 ##### 5️ Run the Application
-flask run
+  - flask --app src.backend.app --debug run
 
 Application runs at:
 
-http://127.0.0.1:5000
-- CI/CD Workflow
+  - http://127.0.0.1:5000
+    
+CI/CD Workflow
 
 This project uses GitHub Actions for automated Continuous Integration and Continuous Deployment.
 
