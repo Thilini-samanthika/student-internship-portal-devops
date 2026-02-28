@@ -5,6 +5,7 @@ Tests basic API endpoints without external dependencies
 import sys
 import os
 
+# Add the backend directory to the path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 def test_imports():
@@ -24,9 +25,9 @@ def test_imports():
 def test_app_creation():
     """Test if Flask app can be created"""
     try:
-        # Import app after setting up test environment
+        
         os.environ['TESTING'] = 'True'
-        from backend.app import app
+        from app import app
         assert app is not None
         assert app.config['JWT_SECRET_KEY'] is not None
         print("✓ Flask app creation successful")
