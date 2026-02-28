@@ -8,6 +8,11 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      SECRET_KEY: test-secret
+      JWT_SECRET_KEY: test-jwt-secret
+      DATABASE_URL: sqlite:///test.db
+      PORT: 5000
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
